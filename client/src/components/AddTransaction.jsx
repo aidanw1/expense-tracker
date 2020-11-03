@@ -13,7 +13,7 @@ const AddTransaction = () => {
     const newTransaction = {
       id: Math.floor(Math.random() * 100000000),
       text,
-      amount: +amount, //parses string into number
+      amount: +amount, //parses string into a number as it is being added into the array as a string
     };
 
     addTransaction(newTransaction);

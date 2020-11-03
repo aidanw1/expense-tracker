@@ -5,6 +5,10 @@ import { numberWithCommas } from "../utils/format";
 const IncomeExpenses = () => {
   const { transactions } = useContext(GlobalContext);
 
+  //income - filters through and gets anything greater than 0 (all positive numbers)
+  //expense - works the same. Anything less than 0 we add up
+  //and adds them all together using reduce and adds 2 decimals
+
   const amounts = transactions.map((transaction) => transaction.amount);
 
   const income = amounts

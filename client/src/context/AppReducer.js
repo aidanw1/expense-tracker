@@ -4,14 +4,16 @@ export default (state, action) => {
       return {
         ...state,
         loading: false,
-        transactions: action.payload,
+        transactions: action.payload, //data we get from response of axios request
       };
+
     case "DELETE_TRANSACTION":
       return {
         ...state,
         transactions: state.transactions.filter(
-          (transaction) => transaction._id !== action.payload
+          (transaction) => transaction._id !== action.payload //id changed to _id as the transactions are now coming from the db
         ),
+        //send down all the transactions except the one that was deleted (id is sent in the payload in the action)
       };
     case "ADD_TRANSACTION":
       return {

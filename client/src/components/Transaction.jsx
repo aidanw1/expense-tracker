@@ -12,9 +12,11 @@ const Transaction = ({ transaction }) => {
       {transaction.text}
       <span>
         {sign}£{numberWithCommas(Math.abs(transaction.amount))}
+        {/* Math.abs makes it an absolute number so it will always be positive
+        so it basically removes the + or - before the amount which we get from the data */}
       </span>
       <button
-        onClick={() => deleteTransaction(transaction._id)}
+        onClick={() => deleteTransaction(transaction._id)} //changed to _id when we get from the db not local state
         className="delete-btn"
       >
         x

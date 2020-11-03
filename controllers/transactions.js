@@ -1,13 +1,17 @@
 const Transaction = require("../models/Transaction");
-//we can use mongoose methods on the model like find, create, remove
-//when we use a mongoose method it returns a promise - async/await on all methods
+// //we can use mongoose methods on the model like find, create, remove
+// //when we use a mongoose method it returns a promise - async/await on all methods
 
-// @desc    Get all transactions
-// @route   GET /api/v1/transactions
-// @access  Public
+// ALL METHODS WHICH GET PASSED IN TO ROUTES
+// // @desc    Get all transactions
+// // @route   GET /api/v1/transactions
+// // @access  Public
+
 exports.getTransactions = async (req, res, next) => {
+  //   res.send("GET transactions");
+
   try {
-    const transactions = await Transaction.find();
+    const transactions = await Transaction.find(); //mongoose method for finding the data
 
     return res.status(200).json({
       success: true,
@@ -20,24 +24,28 @@ exports.getTransactions = async (req, res, next) => {
       error: "Server Error",
     });
   }
-  //   res.send("GET transactions");
 };
 
-// @desc    Add transaction
-// @route   POST /api/v1/transactions
-// @access  Public
-exports.addTransactions = async (req, res, next) => {
+// // @desc    Add transaction
+// // @route   POST /api/v1/transactions
+// // @access  Public
+
+exports.addTransaction = async (req, res, next) => {
+  //   res.send("POST transaction");
+  // add will only accept parameters thats in the model
+
   try {
-    //add will only accept parameters thats in the model
     const { text, amount } = req.body;
 
-    const transaction = await Transaction.create(req.body);
+    const transaction = await Transaction.create(req.body); //creates a transaction
 
     return res.status(201).json({
       success: true,
       data: transaction,
     });
   } catch (err) {
+    console.log(err);
+
     if (err.name === "ValidationError") {
       //adds an array of the error messages
       const messages = Object.values(err.errors).map((val) => val.message);
@@ -52,16 +60,15 @@ exports.addTransactions = async (req, res, next) => {
         error: "Server Error",
       });
     }
-    // console.log(err);
   }
-
-  //   res.send("POST transaction");
 };
 
-// @desc    Delete transaction
-// @route   DELETE /api/v1/transaction/:id
-// @access  Public
+// // @desc    Delete transaction
+// // @route   DELETE /api/v1/transaction/:id
+// // @access  Public
+
 exports.deleteTransaction = async (req, res, next) => {
+  // res.send("DELETE transaction");
   try {
     const transaction = await Transaction.findById(req.params.id);
 
